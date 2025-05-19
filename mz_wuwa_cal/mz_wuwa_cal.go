@@ -6,7 +6,6 @@ type Attacker struct {
 	Level int
 
 	// Base damage of the attacker
-	BaseDmg    int64
 	AbilityDmg float64
 
 	// Total attack of the attacker

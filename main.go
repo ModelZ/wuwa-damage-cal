@@ -11,7 +11,6 @@ func main() {
 	attacker := mzwuwacal.Attacker{
 		Name:               "Attacker",
 		Level:              90,
-		BaseDmg:            1000,
 		AbilityDmg:         1.5,
 		TotalAtk:           2000,
 		ElementDmgBonus:    0.2,
