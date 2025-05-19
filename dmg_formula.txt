@@ -1,0 +1,48 @@
+DMG that actually deal to monster
+true_dmg = base_dmg * all_resistances% * bonus_multipliers%
+
+============== Base DMG ====================
+Base attack before atk increase white number
+base_atk = weapon_atk + char_atk
+
+Total of atk with buff
+total_atk = (base_atk * (1 + atk_buff%)) + flat_atk + flat_atk_buff 
+
+It is the DMG calculated without accounting for any modifiers.
+base_dmg = ability_dmg% * total_atk 
+
+================== all_resistances =============
+all_resistances% = element_res_multiplier% * def_multiplier% * dmg_res% * element_res%
+
+Total Resistance
+Every Enemy has element-specific Base Resistance values and every Character has element-specific Resistance Penetration.
+The total Resistance is the sum of the two for the element type of the attack, i.e.
+
+res_total% = enemy_res% - element_res_ignore%
+
+element_res_multiplier% = 1 - (res_total% / 2) IF res_total% < 0
+                        = 1 - res_total% IF 0 <= res_total% < 0.8
+                        = 1 / (1 + (5 * res_total%)) IF res_total% >= 0.8
+
+enemy_def = (8 * enemy_lv) + 792
+
+def_multiplier% = (800 + 8 * attacker_lv) / ((800 + 8 * attacker_lv) + target_def * (1 - def_ignore_multiplier%))  
+
+dmg_res% = 1 - (dmg_res_base% + dmg_res_additional%)
+element_res% = 1 - (element_res_base% + element_res_additional%)
+
+================= DMG Bonus ==================
+bonus_multipliers = dmg_bonus% * dmg_amplify% * special_dmg% * cri_dmg%
+
+DMG Bonuses are divided into two main categories: Attack type and Element type.
+Not all DMG Bonuses are displayed on the in-game Character Stat page. 
+
+dmg_bonus% = 1 + (element_dmg_bonus% + atk_type_dmg_bonus%)
+
+element_dmg_bonus% -> Spectro/Aero/Glacio/Fusion/Electro/Havoc DMG bonus
+atk_type_dmg_bonus% -> basic/heavy/reson_skill/reson_riberation DMG Bonus
+
+dmg_amplify% = 1 + (dmg_amplify_target% + dmg_amplify_attacker%)
+
+special_dmg% = 1 + (special_dmg_base% + special_dmg_bonus%)
+
