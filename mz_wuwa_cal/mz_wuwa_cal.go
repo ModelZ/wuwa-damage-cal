@@ -11,6 +11,9 @@ type Attacker struct {
 	// Total attack of the attacker
 	TotalAtk int64
 
+	// Is the attack a crit?
+	Crit bool
+
 	// DMG Bonus of the attacker
 	ElementDmgBonus    float64
 	AttackTypeDmgBonus float64
@@ -101,7 +104,11 @@ func GetElementReduce(t *Target) float64 {
 
 // Bonus Multipler Calculation
 func GetBonusMultipliers(a *Attacker, t *Target) float64 {
-	return GetDmgBonus(a) * GetDmgAmplify(a, t) * GetSpecialDmg(a) * a.CritDmg
+	if a.Crit {
+		return GetDmgBonus(a) * GetDmgAmplify(a, t) * GetSpecialDmg(a) * a.CritDmg
+	} else {
+		return GetDmgBonus(a) * GetDmgAmplify(a, t) * GetSpecialDmg(a)
+	}
 }
 
 // element_dmg_bonus% -> Spectro/Aero/Glacio/Fusion/Electro/Havoc DMG bonus
