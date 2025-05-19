@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	mzwuwacal "./mz_wuwa_cal"
+	mzwuwacal "wuwa_cal/mz_wuwa_cal"
 )
 
 func main() {
