@@ -4,25 +4,15 @@ type Attacker struct {
 	// Basic info of the attacker
 	Name  string
 	Level int
-	// Element     string
-	// Attack_Type int
-
-	// True damage of the attacker
-	// TrueDmg float64
 
 	// Base damage of the attacker
 	BaseDmg    int64
 	AbilityDmg float64
+
 	// Total attack of the attacker
 	TotalAtk int64
-	// BaseAtk      int64
-	// AtkBuff      float64
-	// FlatAtkBuff  int64
-	// FlatAtk      int64
 
 	// DMG Bonus of the attacker
-	// BonusMultiplier float64
-	// DmgBonus             float64
 	ElementDmgBonus    float64
 	AttackTypeDmgBonus float64
 	DmgAmplify         float64
@@ -43,11 +33,7 @@ type Target struct {
 	// Element string
 
 	// all resistances of the target
-	// AllResistances    float64
 	BaseElementRes float64
-	// DefMultiplier     float64
-	// DmgReduce         float64
-	// ElementDmgReduce  float64
 
 	// negative resistances of the target
 	DmgTaken float64 // <-> dmg_reduce
