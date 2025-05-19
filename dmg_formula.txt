@@ -12,7 +12,7 @@ It is the DMG calculated without accounting for any modifiers.
 base_dmg = ability_dmg% * total_atk 
 
 ================== all_resistances =============
-all_resistances% = element_res_multiplier% * def_multiplier% * dmg_res% * element_res%
+all_resistances% = element_res_multiplier% * def_multiplier% * dmg_reduce% * element_dmg_reduce%
 
 Total Resistance
 Every Enemy has element-specific Base Resistance values and every Character has element-specific Resistance Penetration.
@@ -28,8 +28,8 @@ enemy_def = (8 * enemy_lv) + 792
 
 def_multiplier% = (800 + 8 * attacker_lv) / ((800 + 8 * attacker_lv) + target_def * (1 - def_ignore_multiplier%))  
 
-dmg_res% = 1 - (dmg_res_base% + dmg_res_additional%)
-element_res% = 1 - (element_res_base% + element_res_additional%)
+dmg_reduce% = 1 - (dmg_res_base% + dmg_res_additional%)
+element_dmg_reduce% = 1 - (element_res_base% + element_res_additional%)
 
 ================= DMG Bonus ==================
 bonus_multipliers = dmg_bonus% * dmg_amplify% * special_dmg% * cri_dmg%

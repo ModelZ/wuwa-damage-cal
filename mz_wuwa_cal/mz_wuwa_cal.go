@@ -21,17 +21,18 @@ type Attacker struct {
 	flat_atk      int64
 
 	// DMG Bonus of the attacker
-	bonus_multiplier float64
-	dmg_bonus        float64
-	dmg_amplify      float64
-	special_dmg      float64
-	crit_dmg         float64
+	bonus_multiplier      float64
+	dmg_bonus             float64
+	element_dmg_bonus     float64
+	attack_type_dmg_bonus float64
+	dmg_amplify           float64
+	special_dmg           float64
+	crit_dmg              float64
 }
 
 type Target struct {
 	// Basic info of the target
 	name    string
-	def     int64
 	level   int
 	element string
 
@@ -46,11 +47,18 @@ type Target struct {
 	def_ignore         float64 // <-> def
 	dmg_taken          float64 // <-> dmg_reduce
 	element_res_ignore float64 // <-> base_element_res
+
+	// Unknown Source
+	dmg_res_base           float64
+	dmg_res_additional     float64
+	element_res_base       float64
+	element_res_additional float64
+	dmg_amplify            float64
 }
 
 // Damage Calculation
 func GetTrueDamage(a *Attacker, t *Target) float64 {
-	return GetBaseDamage(a) * GetAllResistances(t) * a.bonus_multiplier
+	return GetBaseDamage(a) * GetAllResistances(a, t) * a.bonus_multiplier
 }
 
 func GetBaseDamage(a *Attacker) float64 {
@@ -62,8 +70,8 @@ func GetTotalAttack(a *Attacker) float64 {
 }
 
 // Resistances Calculation
-func GetAllResistances(t *Target) float64 {
-	return GetBaseElementRes(t) * t.def_multiplier * t.dmg_reduce * t.element_dmg_reduce
+func GetAllResistances(a *Attacker, t *Target) float64 {
+	return GetBaseElementRes(t) * GetDefMultiplier(a, t) * GetDmgReduce(t) * GetElementReduce(t)
 }
 
 func GetBaseElementRes(t *Target) float64 {
@@ -78,4 +86,48 @@ func GetBaseElementRes(t *Target) float64 {
 		return 1 / (1 + (5 * res_total))
 	}
 
+}
+
+func GetDefMultiplier(a *Attacker, t *Target) float64 {
+	target_def := (8 * t.level) + 792
+	attacker_multiplier := float64(800 + (8 * a.level))
+	return attacker_multiplier / (attacker_multiplier + float64(target_def)*(1-t.def_ignore))
+}
+
+func GetDmgReduce(t *Target) float64 {
+	// Maybe Unused I just set it as 0
+	t.dmg_res_base = 0.0
+	t.dmg_res_additional = 0.0
+	// I think damage taken is here
+	return 1 - (t.dmg_res_base + t.dmg_res_additional) + t.dmg_taken
+}
+
+func GetElementReduce(t *Target) float64 {
+	// Maybe Unused I just set it as 0
+	t.dmg_res_base = 0.0
+	t.dmg_res_additional = 0.0
+	return 1 - (t.element_res_base + t.element_res_additional)
+}
+
+// Bonus Multipler Calculation
+func GetBonusMultipliers(a *Attacker) float64 {
+	return a.dmg_bonus * a.dmg_amplify * a.special_dmg * a.crit_dmg
+}
+
+// element_dmg_bonus% -> Spectro/Aero/Glacio/Fusion/Electro/Havoc DMG bonus
+// atk_type_dmg_bonus% -> basic/heavy/reson_skill/reson_riberation DMG Bonus
+func GetDmgBonus(a *Attacker) float64 {
+	return 1 + (a.element_dmg_bonus + a.attack_type_dmg_bonus)
+}
+
+func GetDmgAmplify(a *Attacker, t *Target) float64 {
+	// Maybe Unused I just set it as 0
+	t.dmg_amplify = 0.0
+	return 1 + a.dmg_amplify + t.dmg_amplify
+}
+
+func GetSpecialDmg(a *Attacker) float64 {
+	// Maybe Unused I just set it as 0
+	a.special_dmg = 0.0
+	return 1 + a.special_dmg
 }
