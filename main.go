@@ -44,4 +44,8 @@ func main() {
 	fmt.Println("Dmg Bonus:", mzwuwacal.GetDmgBonus(&attacker))
 	fmt.Println("Dmg Amplify:", mzwuwacal.GetDmgAmplify(&attacker, &target))
 	fmt.Println("Special Dmg:", mzwuwacal.GetSpecialDmg(&attacker))
+
+	fmt.Println("Press Any Key to Exit...")
+	var inputStr string
+	fmt.Scanln(&inputStr)
 }
