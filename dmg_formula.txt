@@ -46,3 +46,5 @@ dmg_amplify% = 1 + (dmg_amplify_target% + dmg_amplify_attacker%)
 
 special_dmg% = 1 + (special_dmg_base% + special_dmg_bonus%)
 
+References:
+https://wutheringwaves.fandom.com/wiki/Damage

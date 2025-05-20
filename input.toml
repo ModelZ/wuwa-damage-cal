@@ -1,0 +1,46 @@
+[attacker]
+# ชื่อ ผู้โจมตี
+Name = "RoverAero"
+
+# เลเวล
+Level = 90
+
+# %ดาเมจ skill (35.31%)
+AbilityDmg = 0.3531
+
+# พลังโจมตีรวม (ที่ขึ้นหน้าstatตัวละคร)
+TotalAtk = 1183
+
+# ให้ติดคริไหม false=ติดคริ true=ไม่ติดคริ
+Crit = false
+
+# %โบนัสความเสียหายธาตุ (Spectro/Aero/Fusion/Havoc/Glacio)
+ElementDmgBonus = 0.0
+
+# %โบนัสความเสียหายประเภทการโจมตี (basic/heavy/reson_skill/reson_riberation)
+AttackTypeDmgBonus = 0.0
+
+# %final damage (คล้ายๆ outro verina)
+DmgAmplify = 0.0
+
+# %คริดาเมจ (150%)
+CritDmg = 1.5
+
+# ไม่สนพลังป้องกัน%
+DefIgnore = 0.0
+
+# ไม่สนต้านทานธาตุ%
+ElementResIgnore = 0.0
+
+[target]
+# ชื่อ monster
+Name = "Mourning Aix"
+
+# เลเวล monster
+Level = 85
+
+# ความต้านทานธาตุ%
+BaseElementRes = 0.1
+
+# ถูกสร้างความเสียหายเพิ่มเติม%
+DmgTaken = 0.0
